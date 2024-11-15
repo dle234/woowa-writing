@@ -532,7 +532,7 @@ export default router;
 ![](https://velog.velcdn.com/images/kky1373/post/49985b0f-2deb-49c0-8e0f-6be6fdfd5457/image.png)
 
 ```
-단, react 에서 CSR,SSR을 할 경우에 대한 예시이다.
+단, 위 예시는 react 환경에서 CSR,SSR을 할 경우에 대한 예시이다.
 ```
 
 ### CSR이 유리한 경우:
