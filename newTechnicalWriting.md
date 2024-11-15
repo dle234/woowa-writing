@@ -1,13 +1,18 @@
-# SSR 과 CSR 이해하기 
+# SSR 과 CSR 이해하기
 
 ### 🗣️ SSR 과 CSR 의 차이점에 대해 알아보자!
 
 SSR은 서버 사이드 렌더링, CSR은 클라이언트 사이드 렌더링이다.
 글자 그대로 SSR은 서버에서 html을 만들고, CSR은 브라우저에서 html을 만든다. 하지만 여기에는 몇 가지 의문이 생길 수 있다.
 
-> 💭 _ Nextjs 같은 프레임워크 없이 자바스크립트로 SSR을 구현하려면 어떻게 해야할까? nodejs 에서 html을 만드려면 어떻게 해야하지?_
-> 💭 렌더링이 정확하게 뭘까? 서버에서 렌더링 되는 것과 클라이언트에서 렌더링 되는 방식에 어떤 차이가 있을까?
+> 💭 _ Next.js 같은 프레임워크 없이 자바스크립트로 SSR을 구현하려면 어떻게 해야할까?
+> Node.js 에서 html을 만드려면 어떻게 해야하지?_
+
+> 💭 렌더링이 정확하게 뭘까?
+> 서버에서 렌더링 되는 것과 클라이언트에서 렌더링 되는 방식에 어떤 차이가 있을까?
+
 > 💭 여기서 말하는 렌더링과 브라우저 렌더링은 다른걸까?
+
 > 💭 SSR에서 말하는 서버는 무엇일까? api 서버와는 다른걸까?
 
 이러한 의문들을 해결하기 위해서는 웹의 발전 과정과 JavaScript 개발 환경에 대한 이해가 먼저 해결되어야 한다고 생각해서 간단하게 정리해보았다.
@@ -73,10 +78,9 @@ MyApp.Module = {
 이를 통해 전역 스코프 오염을 해결하고 , 모듈 단위로 구조화가 가능해졌다.
 하지만 여전히 다음과 같은 한계점이 존재했다.
 
-- 전역 객체(MyApp, Module) 생성 필요
-- 수동적인 의존성 관리
-- 모듈 재사용의 어려움
-- 파일 단위 스코프 부재
+- 전역 객체(MyApp, Module)를 생성해야해서 번거롭다.
+- 수동으로 의존성의 순서를 고려하여 관리해 주어야 한다.
+- 파일 단위 스코프가 없어서 각 파일마다 영향을 미칠 수 있다.
 
 ## 3. AJAX의 등장 (2005)
 
@@ -129,16 +133,17 @@ MyApp.Module = {
 - 효율적인 메모리 관리
 
 > 왜 인터프리터보다 JIT 컴파일 방식이 더 빠를까?
+
 - 인터프리터 : 매번 한 줄씩 해석하고 실행한다.
 - JIT 컴파일 : 실행 시점에 필요한 코드를 기계어로 컴파일하고, 컴파일 된 코드를 캐싱하여 재사용한다. + 컴파일 과정에서 코드 최적화가 가능하다.
 
 ## 5. Node.js 등장 (2009)
 
-nodejs 는 V8 엔진 기반의 서버사이드 자바스크립트 실행 환경이다.
-node js는 자바스크립트를 서버로 활용하기 위한 도구가 될 수 있다.
-기존의 자바스크립트는 웹 브라우저 위에서만 실행할 수 있었는데, 자바스크립트 런타임인 nodejs 가 등장한 이후 다른 환경에서도 자바스크립트를 실행할 수 있게 되었다.
+Node.js 는 V8 엔진 기반의 서버사이드 자바스크립트 실행 환경이다.
+Node.js는 자바스크립트를 서버로 활용하기 위한 도구가 될 수 있다.
+기존의 자바스크립트는 웹 브라우저 위에서만 실행할 수 있었는데, 자바스크립트 런타임인 Node.js 가 등장한 이후 다른 환경에서도 자바스크립트를 실행할 수 있게 되었다.
 
-- **브라우저 환경과 nodejs 서버 환경 비교하기**
+- **브라우저 환경과 Node.js 서버 환경 비교하기**
 
 > [브라우저 환경]
 > Chrome Browser
@@ -287,10 +292,10 @@ ex) typescript, nextjs, jest
 ex) vite
 
 > commonJs vs ESM
-
-- esm 은 트리쉐이킹 가능, cjs 는 불가. cjs 는 동적 import 로 빌드 타임에 어떤 값이 불러와서 사용해질 수 있는지 가늠하기 어렵다.(cjs 자체가 트리쉐이킹이 불가한게 아니라 동적 import 가 불가한 것.)
-- esm 은 cjs 보다 느림. cjs 는 동기적으로 실행되나, esm 은 전체 모듈 그래프가 구문 분석된 후 다음 코드가 평가되어 느리다.
-- cjs 는 조건에 따른 require 이 가능해서 동적 로딩, 지연 로드 등에 유용하다.
+>
+> - esm 은 트리쉐이킹 가능, cjs 는 불가. cjs 는 동적 import 로 빌드 타임에 어떤 값이 불러와서 사용해질 수 있는지 가늠하기 어렵다.(cjs 자체가 트리쉐이킹이 불가한게 아니라 동적 import 가 불가한 것.)
+> - esm 은 cjs 보다 느림. cjs 는 동기적으로 실행되나, esm 은 전체 모듈 그래프가 구문 분석된 후 다음 코드가 평가되어 느리다.
+> - cjs 는 조건에 따른 require 이 가능해서 동적 로딩, 지연 로드 등에 유용하다.
 
 > node package manager(npm)
 > npm 을 통해 모듈을 배포가 가능하고, 외부의 모듈을 설치할 수 있다. 초기에는 nodejs 모듈에 한정되었지만, 최근에는 자바스크립트 패키지 매니저로 확장됐다.
@@ -298,11 +303,12 @@ ex) vite
 
 ## 9. 마무리
 
-마지막으로 렌더링 환경을 정리해보자
+마지막으로 렌더링 환경을 정리해보자.
 
 ![alt text](image-2.png)
 
-사실 이 정보만으로는 위의 의문에 대답할 수 없다.
+사실 이 정보만으로는 `SSR을 구현하는 방법이라든지, 렌더링이 무엇을 뜻하는 것 인지` 등에 대한 위의 의문에 대답할 수 없다.
+
 하지만,
 CSR(여기서는 리액트)이 보낸 bundle.js 를 `브라우저에서 렌더링`하여 html을 만든다! 의 의미와,
 SSR이 `서버(여기서는 NodeJS)에서 렌더링` 하여 html을 만든다! 가 무슨 의미인지는 알 것이다.
@@ -310,13 +316,14 @@ SSR이 `서버(여기서는 NodeJS)에서 렌더링` 하여 html을 만든다! �
 즉
 
 > 리액트(CSR) -> ts,jsx,es6 ...웹팩으로 번들링(es5이전 버전으로 트랜스파일링, 최적화) -> 브라우저가 bundle.js 받고 DOM,CSSOM tree 그린 후 자바스크립트 엔진으로 자바스크립트를 실행함.(브라우저 렌더링)
-> //사실 v8은 es6도 지원되나, 구형브라우저를 위해 트랜스파일링
+> //사실 v8은 es6도 지원되나, 구형브라우저에 대응하기 위해 트랜스파일링 해준다.
 
 > SSR(nodejs를 이용한 순수 SSR) -> nodejs 에서 자바스크립트를 실행하여 html 생성 -> 브라우저로 보냄 -> 브라우저에서 DOM+CSSROM tree 그림 (브라우저 렌더링)
 
 앞으로 나올 CSR, SSR을 이해하기 위한 바탕이 완성됐다
 
 # <2> SSR, CSR 코드 살펴보고 비교하기
+
 그렇다면 예시를 보며 비교해보자
 우리는 api 서버에서 영화 목록을 불러오고, 불러온 영화목록을 화면에 보여줘야하는 상황이다. 이때 뼈대 html 코드는 다음과 같다.
 
@@ -327,32 +334,36 @@ SSR이 `서버(여기서는 NodeJS)에서 렌더링` 하여 html을 만든다! �
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../assets/styles/reset.css" />
-...생략
+    ...생략
     <script src="./"></script>
     <title>영화 리뷰</title>
   </head>
   <body>
     <div id="wrap">
       <main>
-          <section>
-            <h2>지금 인기 있는 영화</h2>
-            <ul class="thumbnail-list">
-              <!--${MOVIE_ITEMS_PLACEHOLDER}-->
-            </ul>
-          </section>
-        </main>
- ...생략
+        <section>
+          <h2>지금 인기 있는 영화</h2>
+          <ul class="thumbnail-list">
+            <!--${MOVIE_ITEMS_PLACEHOLDER}-->
+          </ul>
+        </section>
+      </main>
+      ...생략
+    </div>
+  </body>
+</html>
 ```
 
 다음과 같은 html이 있을때 데이터를 fetch해서 최종 html 을 어떻게 완성하는지
 SSR, SSR+CSR 별로 살펴보자.
 
-
 ## 순수한 SSR
-🙎 가정 : 초기 페이지에 접속하면 영화 목록을 확인하고 싶어요
+
+🙎 가정 : 초기 페이지에 접속하면 영화 목록을 확인하고 싶어요.
 이때, 초기 렌더링 속도를 줄이기 위해 SSR 를 활용하고 싶어요.
 
 ### ⭐️ 렌더링을 위한 nodejs 코드
+
 ```js
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -363,14 +374,16 @@ const renderMoviePage = async (req, res) => {
   try {
     const templatePath = path.join(__dirname, "../../views", "index.html");
 
-    const movies = await fetchMovies(); 
-   // 1️⃣ 영화 목록 fetch
+    const movies = await fetchMovies();
+    // 1️⃣ 영화 목록 fetch
     const featuredMovie = movies[0];
     const moviesHTML = renderMovieItems(movies);
     let template = fs.readFileSync(templatePath, "utf-8");
-    const renderedHTML = template
-      .replace("<!--${MOVIE_ITEMS_PLACEHOLDER}-->", moviesHTML);
-	// 2️⃣ html 생성
+    const renderedHTML = template.replace(
+      "<!--${MOVIE_ITEMS_PLACEHOLDER}-->",
+      moviesHTML
+    );
+    // 2️⃣ html 생성
     res.send(renderedHTML);
   } catch (error) {
     console.error(error.message);
@@ -380,20 +393,23 @@ const renderMoviePage = async (req, res) => {
 
 export default router;
 ```
+
 여기서는 ssr 서버에서 어떻게 렌더링하는지 알 수 있다.
-- html 가져오기
-- 영화 목록 fetch 해오기
+
+- html을 가져온다.
+- 영화 목록 fetch 해온다.
 - renderMovieItems(정적인 html파일을 return 해주는 자바스크립트 함수) 함수에 fetch한 데이터를 넣어 영화 목록 html을 생성한다.
-- `<!--${MOVIE_ITEMS_PLACEHOLDER}-->` 부분을 위에서 생성한 html으로 바꿔준다. 
+- `<!--${MOVIE_ITEMS_PLACEHOLDER}-->` 부분을 위에서 생성한 html으로 바꿔준다.
 - 특정 라우팅 경로에서 다음과 같이 완성된 html을 보내준다.
 
 ## SSR+CSR
+
 🙎 가정 : 초기 페이지에 접속하면 영화 목록을 확인하고, 영화를 클릭하면 영화의 상세 정보를 모달로 확인하고 싶어요.
 
 이때, 초기 렌더링 속도를 줄이기 위해 SSR 를 활용하나, 그 이후부터 CSR로 동작했으면 좋겠어요.
 
-
 ### 폴더 구조
+
 ```
 📦src
  ┣ 📂apis
@@ -407,15 +423,17 @@ export default router;
  ┃ ┣ 📂routes
  ┃ ┃ ┗ 📜index.js
  ┗ ┗ 📜main.js
- 
+
  client 와 server 폴더를 분리해주었다.
 ```
 
 ## client
+
 client 에서는 리액트에서 한 것 처럼 구현해주면 된다.
 이 부분은 첫 렌더링 후 동적인 웹사이트를 구성하기 위해 사용된다.
 
 ### main
+
 ```jsx
 const initialData = window.__INITIAL_DATA__;
 
@@ -426,9 +444,11 @@ hydrateRoot(
   </BrowserRouter>
 );
 ```
+
 기존에 사용하던 리액트와 다르게 `initialData` 가 있고, createRoot 대신 `hydrateRoot`가 있는 것을 확인할 수 있다.
 
 ### App
+
 ```jsx
 function App({ movies, movieDetail }) {
   return (
@@ -442,9 +462,11 @@ function App({ movies, movieDetail }) {
   );
 }
 ```
+
 app 에서 다음과 같이 라우팅해주었다.
 
 ## server
+
 ```js
 import { StaticRouter } from "react-router-dom/server";
 
@@ -485,47 +507,52 @@ router.get("/detail/:id", async (req, res) => {
 export default router;
 
 ```
-서버 코드이다. client 에서 사용한 코드를 정적인 html 코드로 바꾼 후 
+
+서버 코드이다. client 에서 사용한 코드를 정적인 html 코드로 바꾼 후
 각 라우트 마다 넣어주었다. `StaticRouter` 를 활용하면 경로에 따른 App rendering 이 가능하다.
 
 이 코드는 어떻게 동작할까?
 
-첫 접속 시 서버에서 렌더링된 html 파일이 전달되고(SSR), 그 이후 인터렉션에서는 CSR 이 작동할것이다. 
+첫 접속 시 서버에서 렌더링된 html 파일이 전달되고(SSR), 그 이후 인터렉션에서는 CSR 이 작동할 것이다.
 
 - 첫 접속 시 네트워크창
-![](https://velog.velcdn.com/images/kky1373/post/b127a946-625d-4913-859c-0f4804bdcd9e/image.png)
+  ![](https://velog.velcdn.com/images/kky1373/post/b127a946-625d-4913-859c-0f4804bdcd9e/image.png)
 
 - 클릭 시 네트워크창
-![](https://velog.velcdn.com/images/kky1373/post/de802095-8c6d-4014-8e33-11ca06cb2a2c/image.png)
+  ![](https://velog.velcdn.com/images/kky1373/post/de802095-8c6d-4014-8e33-11ca06cb2a2c/image.png)
 
-
->  첫 접속하면 서버에서 HTML을 전달하고, 영화의 디테일을 보려고 클릭 시 click 이벤트와 navigate가 실행되어 URL이 변경되고 영화의 디테일을 보여줄 것이다. 그리고, 그 상태에서 새로고침 시 첫 접속이기 때문에 디테일 페이지가 서버에서 생성되어 완성된 HTML을 전달할 것이다.
-
-
+> 첫 접속하면 서버에서 HTML을 전달하고, 영화의 디테일을 보려고 클릭 시 click 이벤트와 navigate가 실행되어 URL이 변경되고 영화의 디테일을 보여줄 것이다. 그리고, 그 상태에서 새로고침 시 첫 접속이기 때문에 디테일 페이지가 서버에서 생성되어 완성된 HTML을 전달할 것이다.
 
 정리하면 다음과 같다.
 
 1. **초기 로드 (SSR)**
-- 서버에서 HTML 생성하여 전달한다.
+
+- 서버에서 HTML을 생성하여 전달한다.
 - webpack/server : JSX 트랜스파일링,경로 별칭(alias) 해결, asset 등을 처리해야 한다.
 
 2. **스크립트 로드**
+
 - HTML에 `<script defer src="/static/bundle.js"></script>` 포함
 - 이는 webpack/client 설정을 통해 자동 주입된다.
 - 스크립트가 로드되면 하이드레이션이 시작된다.
 
 3. **하이드레이션 준비**
-- window.__INITIAL_DATA__를 통해 서버 데이터를 주입한다.
+
+- window.**INITIAL_DATA**를 통해 서버 데이터를 주입한다.
+
 - 이 데이터로 클라이언트도 서버와 동일한 상태 유지가 가능하다.
 
 4. **하이드레이션 실행**
+
 - 리액트가 브라우저의 기존 DOM과 INITIAL_DATA가 넣어진 상태로 생성된 가상 DOM을 비교하며, 일치하면 이벤트 리스너를 붙인다. 만약 일치하지 않는다면 에러가 발생한다.
 
 5. **CSR 전환**
+
 - 이후 모든 인터랙션은 클라이언트에서 처리한다.
 - React가 일반적인 SPA처럼 동작한다.
 
 ## CSR vs SSR 장단점
+
 코드로 SSR 을 알아보고, CSR 과 SSR 을 함께 사용하는 방법, 그리고 이 둘의 렌더링 방식이 어떻게 다른지 알아보았다.
 
 마지막으로 이 두 방식을 비교해보자.
@@ -538,32 +565,34 @@ export default router;
 ### CSR이 유리한 경우:
 
 - **사용자의 인터렉션이 많은 웹**
-_`예: SNS, 웹 메일, 관리자 대시보드`_
- CSR은 클라이언트에서 자바스크립트를 실행하기 때문에 `즉각적인 UI 업데이트` 가능하다
+  _`예: SNS, 웹 메일, 관리자 대시보드`_
+  CSR은 클라이언트에서 자바스크립트를 실행하기 때문에 `즉각적인 UI 업데이트` 가능하다
 
 - **서버 비용을 줄여야 할 경우**
-정적 파일 제공만 하면 되므로 `서버 부하가 감소`한다.
-추가로, 정적 파일만으로 구성되어 있어 CDN 배포가 용이하다.
+  정적 파일 제공만 하면 되므로 `서버 부하가 감소`한다.
+  추가로, 정적 파일만으로 구성되어 있어 CDN 배포가 용이하다.
 
 ### SSR이 유리한 경우:
+
 - **초기 렌더링 속도가 중요한 경우**
-_`예: 뉴스, 쇼핑몰 상품 페이지`_
-SSR은 완성된 HTML을 바로 받아볼 수 있어 첫 렌더링 속도가 CSR보다 빠르다.
-CSR은 서버로부터 js를(bundle.js) 초기에 모두 다운받아야 하고, 실행까지 완료되어야 하기 때문에 느리다.
+  _`예: 뉴스, 쇼핑몰 상품 페이지`_
+  SSR은 완성된 HTML을 바로 받아볼 수 있어 첫 렌더링 속도가 CSR보다 빠르다.
+  CSR은 서버로부터 js를(bundle.js) 초기에 모두 다운받아야 하고, 실행까지 완료되어야 하기 때문에 느리다.
 
 > **💭 (+) 왜 CSR에서 fetch 하는 것 보다 SSR에서 fetch 하는게 비교적 빠른 경우가 많을까?**
+>
 > - **물리적 거리**
-서버 ↔ API 서버: 보통 같은 데이터센터 내에 위치
-브라우저 ↔ API 서버: 사용자의 위치에 따라 물리적 거리가 멀 수 있다.
+>   서버 ↔ API 서버: 보통 같은 데이터센터 내에 위치
+>   브라우저 ↔ API 서버: 사용자의 위치에 따라 물리적 거리가 멀 수 있다.
 > - **네트워크 환경**
-서버: 안정적인 고속 네트워크 환경
-브라우저: 사용자의 네트워크 상태에 따라 불안정할 수 있다 (3G, 4G, WiFi 등)
+>   서버: 안정적인 고속 네트워크 환경
+>   브라우저: 사용자의 네트워크 상태에 따라 불안정할 수 있다 (3G, 4G, WiFi 등)
 
 - **SEO 최적화가 중요한 경우**
-_`예: 콘텐츠 중심 웹사이트, 마케팅 페이지`_
-SSR 의 경우 검색 엔진이 완성된 HTML을 크롤링할 수 있어 SEO에 더 유리하다.
-CSR의 경우에는 크롤링 할 때 초기 html을 크롤링 하기 때문에 불리하다. 
-요즘은 Google과 같은 주요 검색엔진이 JavaScript를 실행하여 크롤링할 수 있지만, 모든 검색엔진이 그런 것은 아니며, JavaScript 크롤링은 HTML 크롤링보다 더 많은 리소스와 시간이 필요하다.
+  _`예: 콘텐츠 중심 웹사이트, 마케팅 페이지`_
+  SSR 의 경우 검색 엔진이 완성된 HTML을 크롤링할 수 있어 SEO에 더 유리하다.
+  CSR의 경우에는 크롤링 할 때 초기 html을 크롤링 하기 때문에 불리하다.
+  요즘은 Google과 같은 주요 검색엔진이 JavaScript를 실행하여 크롤링할 수 있지만, 모든 검색엔진이 그런 것은 아니며, JavaScript 크롤링은 HTML 크롤링보다 더 많은 리소스와 시간이 필요하다.
 
 요즘은 SSR과 CSR을 함께 사용하는 하이브리드 방식이 많이 활용되고 있다.
 Next.js와 같은 프레임워크들은 이러한 렌더링 방식들을 쉽게 구현할 수 있도록 도와주고 있다.
@@ -571,7 +600,6 @@ Next.js와 같은 프레임워크들은 이러한 렌더링 방식들을 쉽게 
 렌더링 방식에는 SSR, CSR만 있는 것이 아니라 SSG(Static Site Generation), ISR(Incremental Static Regeneration) 등 다양한 렌더링 전략들이 있다.
 
 각 페이지나 컴포넌트의 특성을 잘 파악하고, 거기에 맞는 최적의 렌더링 방식을 선택해서 조합하자.
-
 
 ---
 
