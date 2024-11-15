@@ -221,7 +221,7 @@ import logo from './logo.png';
 3. 번들링
 4. plugin : 번들된 결과물을 처리,최적화 한다. js를 난독화 하거나 css 를 추출하는 등의 기능을 할 수 있다.
 
-이 과정을 거치며 babel, polyfill 등의 기능 또한 함께 제공되는데, 자세히 알아보자
+이 과정을 거치며 babel, polyfill 등의 기능 또한 함께 제공되는데, 아래에서 이것들에 대해 자세히 알아보자.
 
 ### polyfill
 
