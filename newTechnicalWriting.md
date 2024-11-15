@@ -507,7 +507,7 @@ export default router;
 
 1. **초기 로드 (SSR)**
 - 서버에서 HTML 생성하여 전달한다.
-- webpack/server : JSX 트랜스파일링,경로 별칭(alias) 해결, asset 처리  등을 처리해야 한다.
+- webpack/server : JSX 트랜스파일링,경로 별칭(alias) 해결, asset 등을 처리해야 한다.
 
 2. **스크립트 로드**
 - HTML에 `<script defer src="/static/bundle.js"></script>` 포함
